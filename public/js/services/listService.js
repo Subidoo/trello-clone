@@ -1,10 +1,5 @@
 // Code here for your listService.js to test the endpoint
-this.testRequest = function() {
-  $http.get(http://localhost:8000/api/test).then(function(res) {
-    console.log(res);
-    return res;
-  }
-};
+
 
 
 

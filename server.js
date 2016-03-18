@@ -8,7 +8,9 @@ var port = 8000;
 
 // STEP 1 - Fire up your server, and make sure you get the console.log in your terminal
 // STEP 2 - Code here for your endpoint:
-
+app.get('/api/test', function(req, res) {
+    res.send("The request was successful!");
+});
 
 // STEP 3 - Test this endpoint with Postman (You will need to download postman if you haven't already)
 
