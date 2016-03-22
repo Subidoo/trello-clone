@@ -1,11 +1,16 @@
 var express = require('express');
 //STEP 6 - Find Section 1 code below and paste it here
+var session = require('express-session');
+var bodyParser = require('body-parser');
+var cors = require('cors');
+var morgan = require('morgan');
+var mongoose = require('mongoose');
 
 var app = express();
 var port = 8000;
 // STEP 5 - Server your public files to the browser here
 
-
+app.use(express.static(__dirname + '/public'));
 // STEP 1 - Fire up your server, and make sure you get the console.log in your terminal
 // STEP 2 - Code here for your endpoint:
 app.get('/api/test', function(req, res) {
@@ -18,7 +23,25 @@ app.get('/api/test', function(req, res) {
 // have these three connecting peices in your Angular app: authView, authCtrl, and the listService. 
 
 // STEP 7 - Find Section 2 code below and paste it here
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(cors());
+app.use(morgan('dev'));
 
+
+app.use(session({
+    secret: 'carpediem',
+    saveUninitialized: false,
+    resave: false
+}));
+
+var isAuthenticated = function (req, res, next) {
+    if (req.session.user) {
+        next();
+    } else {
+        return res.status(403).send('Please login first')
+    }
+}
 
 // Step 8 - Uncomment all the code from the angular app, and test your trello app again. You should take a
 // minute to look through all of the HTTP requests that are happening on the front end, and find the matching
